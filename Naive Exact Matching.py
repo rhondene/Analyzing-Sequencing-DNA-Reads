@@ -19,11 +19,10 @@ def naiveMatch(t,s):                    ## s is the reference genome and t is pa
   #### Strandaware Naive Exact Match: Searches for occurences of pattern t
 #### as well as reverse complement of t in reference genome s. Reports
 ####  occurences where reverse complement of t = t, whihc is treated as one occurrences.
-
-
-def NaiveMatchRC(t,tc,s):
+def altNaiveMatchRC(t, s):
 	occur_t = []
 	occur_tc = []
+	tc = revComp(t)
 	for i in range(len(s)-len(t)+1):
 		match_t = True
 		for j in range(len(t)):
@@ -32,15 +31,16 @@ def NaiveMatchRC(t,tc,s):
 				break
 		if match_t:
 			occur_t.append(i)
-	for a in range(len(s)-len(tc)+1):
-		match_tc = True
-		for k in range(len(tc)):
-			if s[a+k] != tc[k]:
-				match_tc = False
-				break
-		if match_tc == True and tc != t:    ##will not double count if t is same as its reveerse complement
-			occur_tc.append(a)
-	return occur_t, occur_tc, len(occur_t), len(occur_tc)  ##pass these to 4 variables
+	if tc !=t:						## will not double count if t and its reverse complement is the same
+		for a in range(len(s)-len(tc)+1):
+			match_tc = True
+			for k in range(len(tc)):
+				if s[a+k] != tc[k]:
+					match_tc=False
+					break
+			if match_tc:
+				occur_tc.append(a)
+	return occur_t, occur_tc, len(occur_t), len(occur_tc)   ##pass into 4 variables or esle it ago crash the shell esp if large genome
 
-x,y,a,b = NaiveMatchRC(t, tc, refgenome)
 
+			
