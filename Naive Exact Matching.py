@@ -36,8 +36,11 @@ def NaiveMatchRC(t,tc,s):
 		match_tc = True
 		for k in range(len(tc)):
 			if s[a+k] != tc[k]:
-				match = False
+				match_tc = False
 				break
 		if match_tc == True and tc != t:    ##will not double count if t is same as its reveerse complement
 			occur_tc.append(a)
-	return occur_t, occur_tc
+	return occur_t, occur_tc, len(occur_t), len(occur_tc)  ##pass these to 4 variables
+
+x,y,a,b = NaiveMatchRC(t, tc, refgenome)
+
