@@ -25,8 +25,8 @@ def editDistDP(x,y):
     for i in range(len(x)+1) :  #build the x+1 by y+1 matrix
         D.append([0]*(len(y)+1))
     
-    for i in range(len(x)+1):  #initialise first row and col as zero for empty dist
-        D[i][0] = i
+    for i in range(len(x)+1):  #initialise first row and col as as ascending 0,1,2,3,4... in case an empty string is given
+        D[i][0] = i             #if len(y) = zero then len of of x is return 
     for i in range(len(y)+1):
         D[0][i] = i
     
